@@ -62,6 +62,7 @@ $(document).ready(function(){
         document.location.href=(mainurl+msg.url)
     });
     socket.on("startGameConfirm",function(){
+        console.log('nice')
         startGame()
     });
 

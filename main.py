@@ -129,7 +129,7 @@ def onUpdate(data):
     socketio.emit('lobbyUpdate', {"list": device_names}, to=room, namespace='/inRoom')
 #start game when one of the client press start
 @socketio.on('startGame',namespace='/inRoom')
-def gameStart():
+def gameStart(data):
     uid = session.get('num', 'not set')
     room = db.session.query(User).filter(User.id == uid).first().room
     statusList = [device.status for device in db.session.query(User).filter(User.room == room).all()]
@@ -137,6 +137,7 @@ def gameStart():
     if ("NotReady" in statusList):
         print(statusList)
         return
+
     socketio.emit('startGameConfirm', {}, to=room, namespace='/inRoom')
 
 
