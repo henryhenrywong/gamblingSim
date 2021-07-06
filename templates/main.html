@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+    <script src="{{url_for('static', filename='js/socketio.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/main.css') }}">
+
+
+</head>
+<body>
+<div id="pageContent">
+    <h1 id="numberContainer"></h1>
+    <h1 id="timer"></h1>
+    <div id="startReady">
+        <button id="startButton">Start</button>
+        <button id="readyButton">Ready Up</button>
+    </div>
+
+
+</div>
+<div id="rightSidebar">
+    <button id="leaveRoom">Leave Room</button>
+    <div id="lobbyContainer">
+        <div>Users in room:</div>
+        <div id="currLobby"></div>
+    </div>
+    <ul id="messages">Log</ul>
+
+</div>
+</body>
+</html>

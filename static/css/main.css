@@ -1,0 +1,9 @@
+#rightSidebar{width:25%;right:0px;position:absolute;background-color:#808080;height:100%;top:0px;}
+#leaveRoom{right:0px;top:2%;position:absolute}
+#pageContent{margin-right:25%;height:100%;width:75%;position:relative}
+#currLobby div{padding-left:20px}
+#lobbyContainer{top:2%;position:absolute;left:5px;}
+#messages{bottom:0%;position: absolute;height:30%;overflow:scroll;margin-bottom:0px;width:86%}
+#roomTitle{top:2%;position:absolute;}
+#readyButton{width:76px;}
+#startReady{right:0px;top:0px;position:absolute;}

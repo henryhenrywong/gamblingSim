@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/lobby.css') }}">
+    <script src="{{url_for('static', filename='js/lobbyscript.js')}}"></script>
+    <script src="{{url_for('static', filename='js/lobbysocketio.js')}}"></script>
+
+
+
+</head>
+<body>
+<div id="usernameContainer">
+<div id = "enterUsername">Enter username:</div>
+<input type="text" id="username" value="Player">
+</div>
+<div class="Container"></div>
+</body>
+</html>
