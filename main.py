@@ -73,7 +73,6 @@ def handleMessage(msg):
 def on_join(data):
     username = data['username']
     room = data['room']
-    print(session['num'])
     db.session.add(User(id = session['num'],username = username,room = room,status='Not Ready'))
     db.session.commit()
 
@@ -81,10 +80,9 @@ def on_join(data):
 @socketio.on('connect', namespace='/inRoom')
 def test_connect():
     uid = session.get('num','not set')
-    print(request.sid,uid)
     curr_user=db.session.query(User).filter(User.id == uid).first()
     if(curr_user is None):
-        print('User is redirected to /')
+        print('User is redirected to /',uid,db.session.query(User).all())
         socketio.emit('redirect',{'url':''},room=request.sid,namespace='/inRoom')
         return
     username = curr_user.username
@@ -128,8 +126,19 @@ def onUpdate(data):
     db.session.commit()
     #after updating,update lobby for client
     device_names = [[device.username, device.status] for device in db.session.query(User).filter(User.room == room).all()]
-    print(device_names)
     socketio.emit('lobbyUpdate', {"list": device_names}, to=room, namespace='/inRoom')
+#start game when one of the client press start
+@socketio.on('startGame',namespace='/inRoom')
+def gameStart():
+    uid = session.get('num', 'not set')
+    room = db.session.query(User).filter(User.id == uid).first().room
+    statusList = [device.status for device in db.session.query(User).filter(User.room == room).all()]
+    #checks if everyone in the room is ready
+    if ("NotReady" in statusList):
+        print(statusList)
+        return
+    socketio.emit('startGameConfirm', {}, to=room, namespace='/inRoom')
+
 
 
 if __name__ == '__main__':

@@ -21,6 +21,13 @@ $(document).ready(function(){
             $('#readyButton').text('Ready Up')
         }
     });
+    //start game
+    $('#startButton').on('click',function(){
+        console.log('Starting...')
+        $('#waiting').hide()
+        socket.emit("startGame",{})
+
+    });
     socket.on('newnumber', function(msg) {
         console.log("Received number: " + msg.number);
         //maintain a list of ten numbers
@@ -53,6 +60,9 @@ $(document).ready(function(){
     socket.on('redirect', function(msg) {
         console.log("Received: " + mainurl);
         document.location.href=(mainurl+msg.url)
+    });
+    socket.on("startGameConfirm",function(){
+        startGame()
     });
 
 });
