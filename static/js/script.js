@@ -1,5 +1,10 @@
-function startGame(){
-    $('#startReady').hide()
+function startGame(playerArr){
+    $('.prestart').hide()
+    $('.poststart').show()
+    //add money status of all players
+    updateplayersmoney(playerArr)
+
+    //keep track of round and time as game progresses
     flag = incrementRound()
     startCountdown()
     let x = setInterval(function(){
@@ -18,16 +23,16 @@ function startGame(){
 function createBox(){}
 //timer  of 30 seconds
 function startCountdown(){
-    $('#timer').html('30')
+    $('#timer').html('Time: 30')
     let x = setInterval(function(){
-        let value = $('#timer').html()
+        let value = $('#timer').html().split(' ')[1]
         if(value == '0'){
             clearInterval(x)
             $('#timer').html('Wait for next bet')
 
         }else{
             let newValue = parseInt(value) - 1
-            $('#timer').html(newValue)
+            $('#timer').html('Time: ' + newValue)
         }
 
     },1000)
@@ -45,4 +50,16 @@ function incrementRound(){
         $("#round").html(newString)
         return roundNumber
     }
+}
+//populate playersmoney of players money given dictionary
+function updateplayersmoney(dict){
+    for (const [key, value] of Object.entries(dict)) {
+        $('#playersmoney').empty()
+        $('#playersmoney').append('<div>'+key+': '+value+'</div>')
+        console.log(key, value);
+    }
+}
+//check if positive whole number
+function isNumeric(value) {
+    return /^\d+$/.test(value);
 }

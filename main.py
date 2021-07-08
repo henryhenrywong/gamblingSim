@@ -14,6 +14,8 @@ app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 db = SQLAlchemy(app)
 
+roomGameStatus = {}
+
 class User(db.Model):
     id = db.Column(db.String(16),primary_key=True)
     username = db.Column(db.String(20),unique=False,nullable=True)
@@ -91,6 +93,7 @@ def test_connect():
     join_room(room)
     send(username + ' has entered the room.', to=room)
     socketio.emit('lobbyUpdate',{"list":device_names},to=room,namespace='/inRoom')
+    #if(room in roomGameStatus):
 
 
 
@@ -133,12 +136,19 @@ def gameStart(data):
     uid = session.get('num', 'not set')
     room = db.session.query(User).filter(User.id == uid).first().room
     statusList = [device.status for device in db.session.query(User).filter(User.room == room).all()]
+    device_names = [device.username for device in db.session.query(User).filter(User.room == room).all()]
+    lobbymoney = {}
+    for elem in device_names:
+        lobbymoney[elem] = 100
+
     #checks if everyone in the room is ready
     if ("NotReady" in statusList):
         print(statusList)
         return
 
-    socketio.emit('startGameConfirm', {}, to=room, namespace='/inRoom')
+    #socketio.emit('ingameStatusUpdate', {"list": device_names}, to=room, namespace='/inRoom')
+    #emit to all users game have started
+    socketio.emit('startGameConfirm', {"list": lobbymoney}, to=room, namespace='/inRoom')
 
 
 

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    //hiding all post start elements on load
+    $('.poststart').hide()
     mainurl = 'http://' + location.hostname+':'+location.port
     var socket = io.connect(mainurl+'/inRoom')
     console.log('http://' + location.hostname+':'+location.port)
@@ -6,11 +8,8 @@ $(document).ready(function(){
         socket.send('User has connected!');
     });
     socket.on('message',function(msg){
-        console.log(msg)
         $("#messages").append('<li>'+msg+'</li>')
         $('#messages').scrollTop($('#messages')[0].scrollHeight)
-        console.log($('#messages')[0].scrollHeight)
-
     });
     $('#readyButton').on('click',function(){
         if($('#readyButton').text() == 'Ready Up'){
@@ -23,7 +22,6 @@ $(document).ready(function(){
     });
     //start game
     $('#startButton').on('click',function(){
-        console.log('Starting...')
         $('#waiting').hide()
         socket.emit("startGame",{})
 
@@ -61,9 +59,32 @@ $(document).ready(function(){
         console.log("Received: " + mainurl);
         document.location.href=(mainurl+msg.url)
     });
-    socket.on("startGameConfirm",function(){
-        console.log('nice')
-        startGame()
+    socket.on("startGameConfirm",function(data){
+        startGame(data.list)
     });
+    $(".option input").change(function(){
+        let currAmount = parseInt($('#money').html().split(' ')[2])
+        let moneyleft = parseInt($('#moneyleft').html().split(' ')[2])
+        if(this.value.length == 0){
+            input = 0
+        }else{
+            input = parseInt(this.value)
+        }
+        if(!isNumeric(input)){
+            this.value = ''
+            alert('Invalid Value')
+        }else if(input > moneyleft){
+            this.value = ''
+            alert('Input is too big')
+        }
+        let totalspend = 0
+        for (elem of $(".option input")){
+            if(!elem.value == ''){
+                totalspend += parseInt(elem.value)
+            }
+        }
+        remainingmoney = currAmount - totalspend
+        $("#moneyleft").html('Resulting Money: '+remainingmoney)
+    })
 
 });

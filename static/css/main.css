@@ -6,7 +6,12 @@
 #messages{bottom:0%;position: absolute;height:30%;overflow:scroll;margin-bottom:0px;width:86%}
 #roomTitle{top:2%;position:absolute;}
 #readyButton{width:76px;}
-#startReady{right:5px;top:0px;position:absolute;}
+#startReady{right:5px;top:5px;position:absolute;}
 #waiting{top:40%;left:40%;position:absolute}
 body{height:100vh;top:0px;position:relative;margin:0px;}
-#optionContainer{position:absolute;top:10%;width:100%;height:90%}
+#optionContainer{position:relative;top:10%;width:100%;height:90%;left:5%;}
+#playersmoney{right:5px;position:absolute;display:none}
+#round{display:inline-block;padding-left:20px;}
+#timer{display:inline-block;padding-left:20px;}
+.option{border: 5px solid green;padding: 80px;margin: 20px;display:inline-block;position:relative;top:200px;}
+.option input{width:60%;position:absolute;left:20%;bottom:10%;}
