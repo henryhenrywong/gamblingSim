@@ -1,5 +1,5 @@
-#rightSidebar{width:25%;right:0px;position:absolute;background-color:#808080;height:100%;top:0px;}
-#leaveRoom{right:0px;top:2%;position:absolute}
+#rightSidebar{width:25%;right:0px;position:absolute;height:100%;top:0px;background-color:#F38630;font-family: "Arial"}
+#leaveRoom{right:5px;top:2%;position:absolute}
 #pageContent{margin-right:25%;height:100%;width:75%;position:absolute;top:0px;}
 #currLobby div{padding-left:20px}
 #lobbyContainer{top:2%;position:absolute;left:5px;}
@@ -7,11 +7,13 @@
 #roomTitle{top:2%;position:absolute;}
 #readyButton{width:76px;}
 #startReady{right:5px;top:5px;position:absolute;}
-#waiting{top:40%;left:40%;position:absolute}
-body{height:100vh;top:0px;position:relative;margin:0px;}
+body{height:100vh;top:0px;position:relative;margin:0px;background-color:#E0E4CC;font-family: "Lucida Console"}
 #optionContainer{position:relative;top:10%;width:100%;height:90%;left:5%;}
 #playersmoney{right:5px;position:absolute;display:none}
-#round{display:inline-block;padding-left:20px;}
+#round{display:inline-block;padding-left:50px;}
 #timer{display:inline-block;padding-left:20px;}
-.option{border: 5px solid green;padding: 80px;margin: 20px;display:inline-block;position:relative;top:200px;}
+.option{border: 5px solid green;padding: 80px;margin: 20px;display:inline-block;position:relative;top:0px;}
 .option input{width:60%;position:absolute;left:20%;bottom:10%;}
+#money{left:50px;position:relative}
+#moneyleft{left:50px;position:relative}
+#waiting{font-size:30px;text-align:center;top:40%;position:relative}

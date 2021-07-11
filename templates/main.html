@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -28,15 +29,23 @@
     <div id="moneyleft" class="poststart">Resulting Money: 100</div>
     <div id="optionContainer" class="poststart">
         <div class="option">
+            <div class="prob">Probability: 20%</div>
+            <div class="return">Odds: 5</div>
             <input type="text">
         </div>
         <div class="option">
+            <div class="prob">Probability: 40%</div>
+            <div class="return">Odds: 2.5</div>
             <input type="text">
         </div>
         <div class="option">
+            <div class="prob">Probability: 60%</div>
+            <div class="return">Odds: 1.66</div>
             <input type="text">
         </div>
         <div class="option">
+            <div class="prob">Probability: 80%</div>
+            <div class="return">Odds: 1.25</div>
             <input type="text">
         </div>
     </div>

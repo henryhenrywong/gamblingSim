@@ -1,6 +1,7 @@
-.RoomContainer{width: 10%;border: 15px solid green;padding: 50px;margin: 20px;}
+.RoomContainer{width: 10%;border: 5px solid #F38630;padding: 20px 70px 20px 70px;margin: 20px;position:relative}
 .Container{position:absolute;left:30%;top:10%;width:70%;height:70%;}
 #myMessage{display:inline-block}
 #enterUsername{display:inline-block}
-#usernameContainer{position:absolute;left:2%;top:2%;}
-.joinButton{margin: 0;position: relative;top: 50%;left: 50%;transform: translate(-50%, -10%);}
+#usernameContainer{position:absolute;left:2%;top:2%;font-family: "Lucida Console";font-weight:bold;}
+.joinButton{margin: 0;top: 30%;left: 50%;transform: translate(-50%, -10%);position:absolute}
+body{background-color:#E0E4CC}

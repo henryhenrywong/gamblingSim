@@ -3,7 +3,6 @@ $(document).ready(function(){
     $('.poststart').hide()
     mainurl = 'http://' + location.hostname+':'+location.port
     var socket = io.connect(mainurl+'/inRoom')
-    console.log('http://' + location.hostname+':'+location.port)
     socket.on('connect', function(){
         socket.send('User has connected!');
     });
@@ -16,7 +15,7 @@ $(document).ready(function(){
             socket.emit("readyUpdate",{"value": 'Ready'})
             $('#readyButton').text('Unready')
         }else{
-            socket.emit("readyUpdate",{"value": 'NotReady'})
+            socket.emit("readyUpdate",{"value": 'Not Ready'})
             $('#readyButton').text('Ready Up')
         }
     });
@@ -27,12 +26,10 @@ $(document).ready(function(){
 
     });
     socket.on('newnumber', function(msg) {
-        console.log("Received number: " + msg.number);
         //maintain a list of ten numbers
         $('#numberContainer').html(msg.number);
     });
     socket.on('startTimer', function(msg) {
-        console.log("Received: " + msg.state);
         startCountdown()
     });
     $('#leaveRoom').on('click',function(){
@@ -40,10 +37,8 @@ $(document).ready(function(){
     });
     socket.on('lobbyUpdate', function(msg) {
         let readyFlag = 1
-        console.log("Received update: " + msg.list);
         $('#currLobby').empty()
         for (row of msg.list) {
-            console.log(row)
             if(row[1]!="Ready") readyFlag = 0
             $('#currLobby').append('<div>'+row[0]+':'+row[1]+'</div>')
         }
@@ -56,11 +51,11 @@ $(document).ready(function(){
 
     });
     socket.on('redirect', function(msg) {
-        console.log("Received: " + mainurl);
         document.location.href=(mainurl+msg.url)
     });
     socket.on("startGameConfirm",function(data){
-        startGame(data.list)
+        socket.emit("readyUpdate",{"value": 'Started'})
+        startGame(data.list,socket)
     });
     $(".option input").change(function(){
         let currAmount = parseInt($('#money').html().split(' ')[2])
@@ -86,5 +81,8 @@ $(document).ready(function(){
         remainingmoney = currAmount - totalspend
         $("#moneyleft").html('Resulting Money: '+remainingmoney)
     })
+    socket.on('updateplayersmoney', function(msg) {
+        updateplayersmoney(msg.list)
+    });
 
 });
