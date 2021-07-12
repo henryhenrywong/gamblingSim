@@ -1,4 +1,4 @@
-#rightSidebar{width:25%;right:0px;position:absolute;height:100%;top:0px;background-color:#F38630;font-family: "Arial"}
+#rightSidebar{width:20%;right:0px;position:absolute;height:100%;top:0px;background-color:#F38630;font-family: "Arial"}
 #leaveRoom{right:5px;top:2%;position:absolute}
 #pageContent{margin-right:25%;height:100%;width:75%;position:absolute;top:0px;}
 #currLobby div{padding-left:20px}
@@ -8,7 +8,7 @@
 #readyButton{width:76px;}
 #startReady{right:5px;top:5px;position:absolute;}
 body{height:100vh;top:0px;position:relative;margin:0px;background-color:#E0E4CC;font-family: "Lucida Console"}
-#optionContainer{position:relative;top:15%;width:100%;height:90%;left:5%;}
+#optionContainer{position:relative;top:15%;width:100%;height:60%;left:5%;}
 #playersmoney{right:5px;position:absolute;display:none}
 #round{display:inline-block;padding-left:50px;}
 #timer{display:inline-block;padding-left:20px;}
