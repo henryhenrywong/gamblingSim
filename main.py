@@ -142,19 +142,19 @@ def gameStart(data):
     statusList = [device.status for device in db.session.query(User).filter(User.room == room).all()]
     device_names = [[device.username, device.money] for device in
                     db.session.query(User).filter(User.room == room).all()]
-    lobbymoney = {}
-    for elem in device_names:
-        lobbymoney[elem[0]] = elem[1]
+    # lobbymoney = {}
+    # for elem in device_names:
+    #     lobbymoney[elem[0]] = elem[1]
 
     # checks if everyone in the room is ready
     if "NotReady" in statusList:
         print(statusList)
         return
     # emit to all users game have started
-    socketio.emit('startGameConfirm', {"list": lobbymoney}, to=room, namespace='/inRoom')
+    socketio.emit('startGameConfirm', {"list": device_names}, to=room, namespace='/inRoom')
     # update room status to active
-    db.session.add(Room(id=room, status="active"))
-    db.session.commit()
+    # db.session.add(Room(id=room, status="active"))
+    # db.session.commit()
 
 
 # update everyone in the room of user current money
@@ -169,10 +169,10 @@ def userinput(data):
     db.session.commit()
     device_names = [[device.username, device.money] for device in
                     db.session.query(User).filter(User.room == room).all()]
-    lobbymoney = {}
-    for elem in device_names:
-        lobbymoney[elem[0]] = elem[1]
-    socketio.emit('updateplayersmoney', {"list": lobbymoney}, to=room, namespace='/inRoom')
+    # lobbymoney = {}
+    # for elem in device_names:
+    #     lobbymoney[elem[0]] = elem[1]
+    socketio.emit('updateplayersmoney', {"list": device_names}, to=room, namespace='/inRoom')
     return
 
 
