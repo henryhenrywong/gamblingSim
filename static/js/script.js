@@ -11,6 +11,7 @@ function startGame(playerArr,socket){
         if(flag == 10){
             clearInterval(y)
             $('#timer').html('Game is over.')
+            alert(highestName())
             endGame(socket)
             return
         }
@@ -45,6 +46,7 @@ function createBox(percentage,odd){
     //input div
     inputnode = document.createElement("input")
     optionnode.append(inputnode)
+    updateInputChangeEvent()
 }
 //timer  of 30 seconds
 function startCountdown(socket){
@@ -56,7 +58,7 @@ function startCountdown(socket){
 //show round counter
 function incrementRound(){
     if($("#round").is(':empty')){
-        $("#round").html('1 of 10 rounds')
+        $("#round").html('9 of 10 rounds')
         return 1
     }else{
         roundNumber = parseInt($("#round").html().split(' ')[0])
@@ -69,10 +71,6 @@ function incrementRound(){
 //populate playersmoney of players money given dictionary
 function updateplayersmoney(dict){
     $('#playersmoney').empty()
-//    for (const [key, value] of Object.entries(dict)) {
-//        $('#playersmoney').append('<div>'+key+': '+value+'</div>')
-//        console.log(key, value);
-//    }
     $('#playersmoney').append('<b>Player\'s money</b>' )
     for (elem of dict){
         $('#playersmoney').append('<div>'+elem[0]+': '+elem[1]+'</div>')
@@ -153,8 +151,9 @@ function changecolor(div){
 function increaseRandomOdds(){
     const cost = 10
     let newAmount = getCurrentMoney() - cost
-    if(newAmount < 0 ){
-        alert("Invalid funds")
+    let resnewAmount = getResultingMoney() - cost
+    if(newAmount < 0 || resnewAmount < 0){
+        alert("Invalid funds, need to decrease amount you're betting")
         return
     }
     let numOdds = $(".return").length
@@ -163,6 +162,7 @@ function increaseRandomOdds(){
 
     $("#money").html("Current Money: "+newAmount)
     $(".return")[index].textContent = "Odds: "+newint
+    $("#moneyleft").html("Resulting Money: "+resnewAmount)
 
 
 }
@@ -172,15 +172,21 @@ function resetOption(){
     createBox(40,2.5)
     createBox(60,1.66)
     createBox(80,1.25)
+    $('#money').html("Current Money: 100")
+    $('#moneyleft').html("Resulting Money: 100")
 }
 function getCurrentMoney(){
     return parseInt($('#money').html().split(' ')[2])
 }
+function getResultingMoney(){
+    return parseInt($('#moneyleft').html().split(' ')[2])
+}
 function increaseRandomProb(){
     const cost = 10
     let newAmount = getCurrentMoney() - cost
-    if(newAmount < 0 ){
-        alert("Invalid funds")
+    let resnewAmount = getResultingMoney() - cost
+    if(newAmount < 0 || resnewAmount < 0){
+        alert("Invalid funds, need to decrease amount you're betting")
         return
     }
     let numOdds = $(".prob").length
@@ -188,14 +194,17 @@ function increaseRandomProb(){
     let newint = parseFloat($(".prob")[index].textContent.split(' ')[1].slice(0,-1)) + 5
 
     $("#money").html("Current Money: "+newAmount)
+    $("#moneyleft").html("Resulting Money: "+resnewAmount)
     $(".prob")[index].textContent = "Probability: "+newint+"%"
 
 }
+//add
 function increaseOption(){
     const cost = 10
     let newAmount = getCurrentMoney() - cost
-    if(newAmount < 0 ){
-        alert("Invalid funds")
+    let resnewAmount = getResultingMoney() - cost
+    if(newAmount < 0 || resnewAmount < 0){
+        alert("Invalid funds, need to decrease amount you're betting")
         return
     }
     let index = Math.floor(Math.random() * 99 + 1)
@@ -206,6 +215,47 @@ function increaseOption(){
         odd = odd - 0.25
     }
     createBox(index,odd)
-    console.log(index,odd)
     $("#money").html("Current Money: "+newAmount)
+    $("#moneyleft").html("Resulting Money: "+resnewAmount)
+}
+//find username of the player with the most money
+function highestName(){
+    let value = 0
+    for (elem of $("#playersmoney div")){
+        currvalue = parseInt(elem.textContent.split(" ")[1])
+        if(currvalue > value){
+            username = elem.textContent.split(":")[0]
+            value = currvalue
+        }
+    }
+    if (value = 0) return "You all lost"
+    return username +" won!"
+}
+function updateInputChangeEvent(){
+    $(".option input").off('change')
+    $(".option input").change(function(){
+        let currAmount = parseInt($('#money').html().split(' ')[2])
+        let moneyleft = parseInt($('#moneyleft').html().split(' ')[2])
+        if(this.value.length == 0){
+            input = 0
+        }else{
+            input = parseInt(this.value)
+        }
+        console.log(input,moneyleft)
+        if(!isNumeric(input)){
+            this.value = ''
+            alert('Invalid Value')
+        }else if(input > moneyleft){
+            this.value = ''
+            alert('Input is too big')
+        }
+        let totalspend = 0
+        for (elem of $(".option input")){
+            if(!elem.value == ''){
+                totalspend += parseInt(elem.value)
+            }
+        }
+        remainingmoney = currAmount - totalspend
+        $("#moneyleft").html('Resulting Money: '+remainingmoney)
+    })
 }

@@ -57,30 +57,7 @@ $(document).ready(function(){
         socket.emit("readyUpdate",{"value": 'Started'})
         startGame(data.list,socket)
     });
-    $(".option input").change(function(){
-        let currAmount = parseInt($('#money').html().split(' ')[2])
-        let moneyleft = parseInt($('#moneyleft').html().split(' ')[2])
-        if(this.value.length == 0){
-            input = 0
-        }else{
-            input = parseInt(this.value)
-        }
-        if(!isNumeric(input)){
-            this.value = ''
-            alert('Invalid Value')
-        }else if(input > moneyleft){
-            this.value = ''
-            alert('Input is too big')
-        }
-        let totalspend = 0
-        for (elem of $(".option input")){
-            if(!elem.value == ''){
-                totalspend += parseInt(elem.value)
-            }
-        }
-        remainingmoney = currAmount - totalspend
-        $("#moneyleft").html('Resulting Money: '+remainingmoney)
-    })
+    updateInputChangeEvent()
     socket.on('updateplayersmoney', function(msg) {
         updateplayersmoney(msg.list)
     });
