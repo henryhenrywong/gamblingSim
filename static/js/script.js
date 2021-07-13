@@ -58,7 +58,7 @@ function startCountdown(socket){
 //show round counter
 function incrementRound(){
     if($("#round").is(':empty')){
-        $("#round").html('9 of 10 rounds')
+        $("#round").html('1 of 10 rounds')
         return 1
     }else{
         roundNumber = parseInt($("#round").html().split(' ')[0])
@@ -221,6 +221,7 @@ function increaseOption(){
 //find username of the player with the most money
 function highestName(){
     let value = 0
+    let username = "No one"
     for (elem of $("#playersmoney div")){
         currvalue = parseInt(elem.textContent.split(" ")[1])
         if(currvalue > value){
@@ -228,7 +229,6 @@ function highestName(){
             value = currvalue
         }
     }
-    if (value = 0) return "You all lost"
     return username +" won!"
 }
 function updateInputChangeEvent(){
@@ -241,13 +241,9 @@ function updateInputChangeEvent(){
         }else{
             input = parseInt(this.value)
         }
-        console.log(input,moneyleft)
         if(!isNumeric(input)){
             this.value = ''
             alert('Invalid Value')
-        }else if(input > moneyleft){
-            this.value = ''
-            alert('Input is too big')
         }
         let totalspend = 0
         for (elem of $(".option input")){
@@ -256,6 +252,12 @@ function updateInputChangeEvent(){
             }
         }
         remainingmoney = currAmount - totalspend
+        if(remainingmoney < 0){
+            this.value = ''
+            $("#moneyleft").html('Resulting Money: '+parseInt(remainingmoney+input))
+            alert("Value is too high")
+            return
+        }
         $("#moneyleft").html('Resulting Money: '+remainingmoney)
     })
 }
