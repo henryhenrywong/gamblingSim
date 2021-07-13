@@ -261,3 +261,18 @@ function updateInputChangeEvent(){
         $("#moneyleft").html('Resulting Money: '+remainingmoney)
     })
 }
+function deleteRandomBox(){
+    const cost = 25
+    let newAmount = getCurrentMoney() - cost
+    let resnewAmount = getResultingMoney() - cost
+    if(newAmount < 0 || resnewAmount < 0){
+        alert("Invalid funds, need to decrease amount you're betting")
+        return
+    }
+    let numOdds = $(".option").length
+    let index = Math.floor(Math.random() * (numOdds))
+    $(".option")[index].remove()
+    $("#money").html("Current Money: "+newAmount)
+    $("#moneyleft").html("Resulting Money: "+resnewAmount)
+
+}
